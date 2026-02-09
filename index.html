@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaliperTools - 在线工具集合 | 收录CaliperTools.com域名下的所有工具</title>
+    <!-- 网站描述 -->
+    <meta name="description" content="CaliperTools是一个综合性的在线工具集合，收录了CaliperTools.com域名下的所有实用工具，帮助用户轻松完成各种日常任务，提高工作效率。">
+    <!-- 网站图标 -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.png">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    /* 基础样式重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f8ff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* 全局容器 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 导航栏样式 */
+    nav {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .nav-logo-img {
+      width: 200px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #666;
+      font-size: 16px;
+      transition: color 0.3s ease;
+      font-weight: normal;
+    }
+
+    .nav-menu a:hover {
+      color: #4683f4;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* 头部样式 */
+    header {
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .download-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    /* 按钮基础样式 */
+    .btn {
+      padding: 10px 24px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    /* 按钮图标样式 */
+    .btn i {
+      margin-right: 8px;
+    }
+
+    .btn-blue {
+      background-color: #4683f4;
+      color: white;
+    }
+
+    .btn-blue:hover {
+      background-color: #3366cc;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #4683f4;
+      border: 1px solid #4683f4;
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(70, 131, 244, 0.1);
+    }
+
+    /* 主banner视频样式 */
+    .hero-screenshot {
+      width: 1000px;
+      max-width: 100%;
+      height: 600px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+    
+    /* 视频容器相对定位 */
+    .video-container {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    /* 视频覆盖层 */
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    
+    /* 覆盖层文字样式 */
+    .overlay-text {
+      color: white;
+      font-size: 36px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* 隐藏覆盖层 */
+    .video-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 下载模态框样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+    }
+
+    /* 模态框内容 */
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border: none;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: modalFadeIn 0.3s ease;
+      position: relative;
+    }
+
+    /* 模态框动画 */
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 关闭按钮 */
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .close-btn:hover {
+      color: #333;
+    }
+
+    /* 模态框标题 */
+    .modal-content h3 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* 下载选项列表 */
+    .download-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 单个选项样式 */
+    .option-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .option-item:hover {
+      background-color: #e9ecef;
+    }
+
+    /* 选项名称 */
+    .option-name {
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    /* 下载按钮样式调整 */
+    .option-btn {
+      min-width: 120px;
+      max-width: 140px;
+      text-align: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* 特性区块 */
+    .features {
+      padding: 80px 0;
+    }
+
+    .feature-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #F7FAFD 0%, #F7F9FC 100%);
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 540px;
+      gap: 80px;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-card.reverse {
+      flex-direction: row-reverse;
+    }
+
+    /* 核心修改：标题和描述容器固定400px宽度 */
+    .feature-text {
+      flex: none; /* 取消弹性伸缩，固定宽度 */
+      width: 400px; /* 固定宽度400px */
+      padding: 0;
+    }
+
+    .feature-text h2 {
+      font-size: 36px;
+      font-weight: normal;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+
+    .feature-text p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.8;
+      /* 自动换行，不限制行数 */
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+    }
+
+    /* 图片容器 - 单独背景 */
+    .feature-img-wrapper {
+      flex: none;
+      width: 570px;
+      height: 400px;
+      background-color: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 图片固定尺寸 */
+    .feature-screenshot {
+      width: 480px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* 底部 CTA */
+    .cta {
+      padding: 0 0 80px 0;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 28px;
+      margin-bottom: 32px;
+    }
+
+    /* 页脚 */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #e8e8e8;
+    }
+    
+    /* 友情链接样式 */
+    .footer-links {
+      margin-bottom: 20px;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 12px;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #4683f4;
+    }
+    
+    /* 右侧功能按钮样式 */
+    .side-tools {
+      position: fixed;
+      right: 250px;
+      bottom: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 99;
+    }
+    
+    /* 移动端适配 */
+    @media (max-width: 1200px) {
+      .side-tools {
+        right: 30px;
+        bottom: 30px;
+      }
+    }
+    
+    /* 右侧功能按钮 */
+    .side-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: #4683f4;
+      border: none;
+      box-shadow: 0 2px 12px rgba(70, 131, 244, 0.3);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      text-align: center;
+    }
+
+    /* 工具集合区域 */
+    .tools-collection {
+      padding: 30px 0;
+    }
+
+    /* 工具网格布局 */
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+
+    /* 工具卡片样式 */
+    .tool-card {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      height: 100px;
+      transition: all 0.3s ease;
+      min-width: 0;
+      box-sizing: border-box;
+      flex: 0 0 calc(33.333% - 30px);
+      margin: 0 15px 30px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 工具图标 */
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background-color: #f0f4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+
+    .tool-icon i {
+      font-size: 24px;
+      color: #4683f4;
+    }
+
+    /* 工具信息 */
+    .tool-info {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* 工具标题 */
+    .tool-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 工具描述 */
+    .tool-description {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+    
+    .side-btn:hover {
+      background-color: #3366cc;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(51, 102, 204, 0.4);
+    }
+    
+    .side-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 语言切换按钮样式 */
+    .lang-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .lang-top, .lang-bottom {
+      position: relative;
+      font-size: 12px;
+      font-weight: 500;
+      width: 100%;
+      text-align: center;
+      padding: 3px 0;
+      z-index: 1;
+    }
+    
+    /* 为语言切换按钮添加上下分割线 */
+    .side-btn#language-switch::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.5);
+      z-index: 0;
+    }
+    
+    /* 调整语言切换按钮的高度和定位 */
+    .side-btn#language-switch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative; /* 确保伪元素能正确定位 */
+      overflow: visible; /* 确保伪元素能显示出来 */
+    }
+    
+    /* 为语言切换按钮添加上下分割线 */
+    .side-btn#language-switch::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.8); /* 增加透明度，让分割线更明显 */
+      z-index: 2; /* 提高层级，确保分割线显示在文字上方 */
+    }
+
+    /* 响应式适配 - 移动端优化 */
+    @media (max-width: 1200px) {
+      .feature-card {
+        height: auto;
+        min-height: 540px;
+        padding: 32px 20px;
+        gap: 40px;
+        flex-wrap: wrap; /* 允许换行 */
+        justify-content: center;
+      }
+      
+      .feature-text {
+        width: 100%; /* 中屏宽度100% */
+        max-width: 400px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      
+      .feature-img-wrapper {
+        width: 80%;
+        max-width: 570px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      
+      .feature-card, .feature-card.reverse {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 16px;
+        gap: 32px;
+      }
+
+      .feature-text {
+        width: 100%; /* 移动端宽度100% */
+        max-width: 400px;
+        padding: 0;
+        margin-bottom: 20px;
+      }
+
+      .feature-img-wrapper {
+        width: 100%;
+        height: 300px;
+        padding: 20px;
+      }
+
+      .feature-screenshot {
+        width: 100%;
+        height: auto;
+        max-height: 260px;
+      }
+
+      .feature-text h2 {
+        font-size: 28px;
+        font-weight: normal;
+      }
+
+      .feature-text p {
+        font-size: 16px;
+      }
+
+      .hero-screenshot {
+        width: 100%;
+        height: auto;
+        min-height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .feature-img-wrapper {
+        height: 250px;
+      }
+      
+      header h1 {
+        font-size: 24px;
+      }
+      
+      .download-buttons {
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto 40px;
+      }
+      
+      .btn {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    /* 工具集合响应式设计 */
+    @media (max-width: 768px) {
+      .tool-card {
+        flex: 0 0 calc(50% - 20px);
+        margin: 0 10px 20px;
+        padding: 16px;
+      }
+      
+      .tools-grid {
+        margin: 0 -10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tool-card {
+        flex: 0 0 calc(100% - 20px);
+      }
+      
+      .tool-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 16px;
+      }
+      
+      .tool-icon i {
+        font-size: 20px;
+      }
+      
+      .tool-title {
+        font-size: 15px;
+      }
+      
+      .tool-description {
+        font-size: 13px;
+      }
+    }
+  </style>
+  <!-- 在现有script标签前添加 -->
+
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="images/logo.png" alt="PotPlayer" class="nav-logo-img">
+      </a>
+      <div class="nav-menu">
+        <!-- <a href="#">首页</a> -->
+        <!-- <a href="#">功能介绍</a> -->
+        <!-- <a href="#">帮助中心</a> -->
+      </div>
+      <div class="nav-actions">
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 头部区域 -->
+    <header>
+      <h1>CaliperTools 工具集合</h1>
+      <p style="margin-top: 10px; font-size: 16px; color: #666;">收录了102个实用工具，按照类别进行分类，方便您快速找到所需工具</p>
+    </header>
+
+    <!-- 分类导航 -->
+    <nav class="category-nav" style="margin: 30px 0; background-color: #f8f9fa; padding: 15px; border-radius: 12px;">
+      <ul style="display: flex; flex-wrap: wrap; gap: 15px; list-style: none; padding: 0; margin: 0;">
+        <li><a href="#popular" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">热门工具</a></li>
+        <li><a href="#adobe" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">Adobe 产品</a></li>
+        <li><a href="#video" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">视频工具</a></li>
+        <li><a href="#image" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">图像工具</a></li>
+        <li><a href="#download" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">下载工具</a></li>
+        <li><a href="#system" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">系统工具</a></li>
+        <li><a href="#dev" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">开发工具</a></li>
+        <li><a href="#other" style="color: #4683f4; text-decoration: none; padding: 8px 16px; border-radius: 20px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease;">其他工具</a></li>
+      </ul>
+    </nav>
+
+    <!-- 热门工具区域 -->
+    <section class="tools-collection" id="popular">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">热门工具</h2>
+      <div class="tools-grid">
+        <!-- 热门工具 1 -->
+        <a href="https://www.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">CaliperTools</h3>
+            <p class="tool-description">实用的在线工具集合，帮助您轻松完成日常任务，提高工作效率</p>
+          </div>
+        </a>
+        <!-- 热门工具 2 -->
+        <a href="https://emoji.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Emoji Ultra</h3>
+            <p class="tool-description">丰富的表情符号集合，支持文本复制粘贴和分享，让交流更加生动有趣</p>
+          </div>
+        </a>
+        <!-- 热门工具 3 -->
+        <a href="https://potplayer.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">PotPlayer</h3>
+            <p class="tool-description">强大的高清视频播放器，支持4K/8K/3D格式，提供流畅的播放体验和丰富的自定义选项</p>
+          </div>
+        </a>
+        <!-- 热门工具 4 -->
+        <a href="https://qBittorrent.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-magnet"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">qBittorrent</h3>
+            <p class="tool-description">轻量级的BitTorrent客户端，提供简洁的界面和强大的下载功能，支持多种平台</p>
+          </div>
+        </a>
+        <!-- 热门工具 5 -->
+        <a href="https://AdobePhotoshop.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Photoshop</h3>
+            <p class="tool-description">专业的图像处理软件，提供强大的编辑工具和创意功能，是设计师的必备工具</p>
+          </div>
+        </a>
+        <!-- 热门工具 6 -->
+        <a href="https://IDM.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-arrow-down"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">IDM</h3>
+            <p class="tool-description">互联网下载管理器，提供高速下载功能和断点续传，支持多种浏览器集成</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Adobe 产品系列 -->
+    <section class="tools-collection" id="adobe">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">Adobe 产品系列</h2>
+      <div class="tools-grid">
+        <a href="https://AdobeAcrobatProDC.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Acrobat Pro DC</h3>
+            <p class="tool-description">专业的PDF编辑和管理软件，提供强大的文档处理功能</p>
+          </div>
+        </a>
+        <a href="https://AdobeAcrobatProDCPortable.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Acrobat Pro DC Portable</h3>
+            <p class="tool-description">便携版PDF编辑和管理软件，无需安装即可使用</p>
+          </div>
+        </a>
+        <a href="https://AdobeAnimate.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Animate</h3>
+            <p class="tool-description">专业的动画制作软件，支持2D和3D动画创作</p>
+          </div>
+        </a>
+        <a href="https://AdobeAudition.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-microphone"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Audition</h3>
+            <p class="tool-description">专业的音频编辑软件，提供多轨录音和混音功能</p>
+          </div>
+        </a>
+        <a href="https://AdobeBridge.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Bridge</h3>
+            <p class="tool-description">创意资产管理工具，帮助您组织、浏览和管理媒体文件</p>
+          </div>
+        </a>
+        <a href="https://AdobeCameraRaw.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-camera"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Camera Raw</h3>
+            <p class="tool-description">专业的RAW图像处理插件，提供高级的照片编辑功能</p>
+          </div>
+        </a>
+        <a href="https://AdobeCaptivate.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Captivate</h3>
+            <p class="tool-description">交互式电子学习内容创作工具，用于创建培训课程和演示文稿</p>
+          </div>
+        </a>
+        <a href="https://AdobeCharacterAnimator.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-user-astronaut"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Character Animator</h3>
+            <p class="tool-description">实时角色动画软件，通过网络摄像头捕捉表情和动作</p>
+          </div>
+        </a>
+        <a href="https://AdobeCreativeCloudCleanerTool.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-broom"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Creative Cloud Cleaner Tool</h3>
+            <p class="tool-description">清理Adobe Creative Cloud相关文件和注册表项的工具</p>
+          </div>
+        </a>
+        <a href="https://AdobeDimension.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cube"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Dimension</h3>
+            <p class="tool-description">3D设计和渲染软件，用于创建产品可视化和品牌素材</p>
+          </div>
+        </a>
+        <a href="https://AdobeDNGConverter.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe DNG Converter</h3>
+            <p class="tool-description">将相机原始格式转换为DNG格式的工具</p>
+          </div>
+        </a>
+        <a href="https://AdobeDreamweaver.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Dreamweaver</h3>
+            <p class="tool-description">专业的网页设计和开发工具，提供可视化编辑和代码编辑功能</p>
+          </div>
+        </a>
+        <a href="https://AdobeFresco.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Fresco</h3>
+            <p class="tool-description">数字绘画和绘图应用，结合了传统绘画和现代数字工具</p>
+          </div>
+        </a>
+        <a href="https://AdobeIllustrator.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-drafting-compass"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Illustrator</h3>
+            <p class="tool-description">专业的矢量图形编辑软件，用于创建标志、图标和插图</p>
+          </div>
+        </a>
+        <a href="https://AdobeInCopy.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe InCopy</h3>
+            <p class="tool-description">专业的文案编辑软件，与InDesign无缝协作</p>
+          </div>
+        </a>
+        <a href="https://AdobeInDesign.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe InDesign</h3>
+            <p class="tool-description">专业的版面设计和排版软件，用于创建印刷品和数字出版物</p>
+          </div>
+        </a>
+        <a href="https://AdobeLightroom.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-camera-retro"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Lightroom</h3>
+            <p class="tool-description">专业的照片编辑和管理软件，提供强大的图像处理功能</p>
+          </div>
+        </a>
+        <a href="https://AdobeLightroomClassic.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Lightroom Classic</h3>
+            <p class="tool-description">桌面版照片编辑和管理软件，提供全面的图像处理工具</p>
+          </div>
+        </a>
+        <a href="https://AdobeMediaEncoder.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Media Encoder</h3>
+            <p class="tool-description">专业的媒体编码软件，用于转换和导出各种视频格式</p>
+          </div>
+        </a>
+        <a href="https://AdobePhotoshop.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-image"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Photoshop</h3>
+            <p class="tool-description">专业的图像处理软件，提供强大的编辑工具和创意功能</p>
+          </div>
+        </a>
+        <a href="https://AdobePhotoshopElements.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-paint-roller"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Photoshop Elements</h3>
+            <p class="tool-description">面向家庭用户的照片编辑软件，提供简化的编辑工具</p>
+          </div>
+        </a>
+        <a href="https://AdobePremiereElements.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Premiere Elements</h3>
+            <p class="tool-description">面向家庭用户的视频编辑软件，提供简化的编辑工具</p>
+          </div>
+        </a>
+        <a href="https://AdobePremiere.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cut"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Premiere Pro</h3>
+            <p class="tool-description">专业的视频编辑软件，用于电影、电视和网络内容创作</p>
+          </div>
+        </a>
+        <a href="https://AdobePremiereRush.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Premiere Rush</h3>
+            <p class="tool-description">跨平台视频编辑应用，适合快速创建和分享视频内容</p>
+          </div>
+        </a>
+        <a href="https://AdobeSubstance3DDesigner.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Substance 3D Designer</h3>
+            <p class="tool-description">3D材质创建工具，用于游戏、电影和AR/VR内容</p>
+          </div>
+        </a>
+        <a href="https://AdobeSubstance3DModeler.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cube"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Substance 3D Modeler</h3>
+            <p class="tool-description">3D建模工具，提供直观的建模体验</p>
+          </div>
+        </a>
+        <a href="https://AdobeSubstance3DPainter.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Substance 3D Painter</h3>
+            <p class="tool-description">3D纹理绘制工具，用于为3D模型添加详细的纹理</p>
+          </div>
+        </a>
+        <a href="https://AdobeSubstance3DSampler.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-clone"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Substance 3D Sampler</h3>
+            <p class="tool-description">3D材质采样工具，从照片创建高质量材质</p>
+          </div>
+        </a>
+        <a href="https://AdobeSubstance3DStager.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-theater-masks"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe Substance 3D Stager</h3>
+            <p class="tool-description">3D场景构建和渲染工具，用于创建产品可视化</p>
+          </div>
+        </a>
+        <a href="https://AdobeXD.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-desktop"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Adobe XD</h3>
+            <p class="tool-description">用户体验设计和原型制作工具，用于创建网站和移动应用界面</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 视频工具 -->
+    <section class="tools-collection" id="video">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">视频工具</h2>
+      <div class="tools-grid">
+        <a href="https://HitPawCompressor.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-compress"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Compressor</h3>
+            <p class="tool-description">视频压缩工具，减小视频文件大小同时保持质量</p>
+          </div>
+        </a>
+        <a href="https://HitPawScreenRecorder.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-desktop"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Screen Recorder</h3>
+            <p class="tool-description">屏幕录制工具，用于创建教程、游戏视频和演示</p>
+          </div>
+        </a>
+        <a href="https://HitPawVideoConverter.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Video Converter</h3>
+            <p class="tool-description">视频格式转换工具，支持多种视频格式互转</p>
+          </div>
+        </a>
+        <a href="https://HitPawVideoEditor.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Video Editor</h3>
+            <p class="tool-description">视频编辑软件，提供简单易用的视频编辑功能</p>
+          </div>
+        </a>
+        <a href="https://HitPawVideoEnhancer.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Video Enhancer</h3>
+            <p class="tool-description">视频增强工具，使用AI提升视频质量</p>
+          </div>
+        </a>
+        <a href="https://HitPawVideoObjectRemover.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-eraser"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Video Object Remover</h3>
+            <p class="tool-description">视频对象移除工具，从视频中删除不需要的对象</p>
+          </div>
+        </a>
+        <a href="https://HitPawWatermarkRemover.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-water"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Watermark Remover</h3>
+            <p class="tool-description">视频水印移除工具，从视频中删除水印</p>
+          </div>
+        </a>
+        <a href="https://Kdenlive.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Kdenlive</h3>
+            <p class="tool-description">开源视频编辑软件，提供专业的视频编辑功能</p>
+          </div>
+        </a>
+        <a href="https://WondershareFilmora.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Wondershare Filmora</h3>
+            <p class="tool-description">用户友好的视频编辑软件，提供丰富的视频效果</p>
+          </div>
+        </a>
+        <a href="https://WondershareFilmoraPortable.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Wondershare Filmora Portable</h3>
+            <p class="tool-description">便携版视频编辑软件，无需安装即可使用</p>
+          </div>
+        </a>
+        <a href="https://hitpawunivd.calipertools.com/" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-sync-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Univd</h3>
+            <p class="tool-description">视频编辑工具，提供多种视频处理功能</p>
+          </div>
+        </a>
+        <a href="https://HitPawToolkit.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Toolkit</h3>
+            <p class="tool-description">HitPaw工具集合，包含多种媒体处理工具</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 图像工具 -->
+    <section class="tools-collection" id="image">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">图像工具</h2>
+      <div class="tools-grid">
+        <a href="https://HitPawPhotoAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Photo AI</h3>
+            <p class="tool-description">AI照片编辑工具，提供智能照片增强和编辑功能</p>
+          </div>
+        </a>
+        <a href="https://HitPawPhotoEnhancer.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Photo Enhancer</h3>
+            <p class="tool-description">照片增强工具，使用AI提升照片质量</p>
+          </div>
+        </a>
+        <a href="https://HitPawPhotoObjectRemover.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-eraser"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HitPaw Photo Object Remover</h3>
+            <p class="tool-description">照片对象移除工具，从照片中删除不需要的对象</p>
+          </div>
+        </a>
+        <a href="https://KritaAIDiffusion.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Krita AI Diffusion</h3>
+            <p class="tool-description">AI辅助绘画工具，结合Krita和扩散模型</p>
+          </div>
+        </a>
+        <a href="https://WebUI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">SD WebUI</h3>
+            <p class="tool-description">人工智能图像生成工具，支持文本到图像生成、图像编辑和修改等功能</p>
+          </div>
+        </a>
+        <a href="https://ComfyUI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ComfyUI</h3>
+            <p class="tool-description">人工智能图像生成工具，提供可视化工作流和丰富的预设</p>
+          </div>
+        </a>
+        <a href="https://ON1Effects.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Effects</h3>
+            <p class="tool-description">照片效果插件，为照片添加各种创意效果</p>
+          </div>
+        </a>
+        <a href="https://ON1HDR.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-sun"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 HDR</h3>
+            <p class="tool-description">HDR照片处理软件，创建高质量的HDR图像</p>
+          </div>
+        </a>
+        <a href="https://ON1NoNoiseAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-ban"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 NoNoise AI</h3>
+            <p class="tool-description">AI降噪工具，减少照片中的噪点</p>
+          </div>
+        </a>
+        <a href="https://ON1PhotoKeywordAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tags"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Photo Keyword AI</h3>
+            <p class="tool-description">AI照片关键词工具，自动为照片添加关键词</p>
+          </div>
+        </a>
+        <a href="https://ON1PhotoRAW.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-camera"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Photo RAW</h3>
+            <p class="tool-description">照片编辑软件，提供全面的RAW图像处理功能</p>
+          </div>
+        </a>
+        <a href="https://ON1PhotoRAWMAX.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-camera-retro"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Photo RAW MAX</h3>
+            <p class="tool-description">增强版照片编辑软件，包含所有ON1插件</p>
+          </div>
+        </a>
+        <a href="https://ON1PortraitAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-user-edit"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Portrait AI</h3>
+            <p class="tool-description">AI人像编辑工具，自动美化人像照片</p>
+          </div>
+        </a>
+        <a href="https://ON1ResizeAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Resize AI</h3>
+            <p class="tool-description">AI图像放大工具，在放大图像时保持质量</p>
+          </div>
+        </a>
+        <a href="https://ON1SkySwapAI.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cloud-sun"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ON1 Sky Swap AI</h3>
+            <p class="tool-description">AI天空替换工具，自动替换照片中的天空</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 下载工具 -->
+    <section class="tools-collection" id="download">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">下载工具</h2>
+      <div class="tools-grid">
+        <a href="https://Aria2.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Aria2</h3>
+            <p class="tool-description">轻量级多协议命令行下载工具，支持HTTP、FTP、BitTorrent等</p>
+          </div>
+        </a>
+        <a href="https://Motrix.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Motrix</h3>
+            <p class="tool-description">开源下载管理器，支持多协议和多线程下载</p>
+          </div>
+        </a>
+        <a href="https://qBittorrent.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-magnet"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">qBittorrent</h3>
+            <p class="tool-description">轻量级BitTorrent客户端，提供简洁的界面和强大的下载功能</p>
+          </div>
+        </a>
+        <a href="https://Rclone.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Rclone</h3>
+            <p class="tool-description">云存储同步工具，支持多种云存储服务</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 系统工具 -->
+    <section class="tools-collection" id="system">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">系统工具</h2>
+      <div class="tools-grid">
+        <a href="https://AutoHotkey.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-keyboard"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">AutoHotkey</h3>
+            <p class="tool-description">自动化脚本语言，用于创建热键和自动化任务</p>
+          </div>
+        </a>
+        <a href="https://BalenaEtcher.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-hdd"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">BalenaEtcher</h3>
+            <p class="tool-description">USB启动盘创建工具，用于刷写镜像到USB设备</p>
+          </div>
+        </a>
+        <a href="https://Bandizip.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-archive"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Bandizip Pro</h3>
+            <p class="tool-description">专业的文件压缩工具，支持多种压缩格式</p>
+          </div>
+        </a>
+        <a href="https://CPU-Z.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">CPU-Z</h3>
+            <p class="tool-description">系统信息工具，显示CPU、主板、内存等硬件信息</p>
+          </div>
+        </a>
+        <a href="https://CrystalMark.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">CrystalMark</h3>
+            <p class="tool-description">系统性能测试工具，评估计算机硬件性能</p>
+          </div>
+        </a>
+        <a href="https://DittoClipboard.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-copy"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Ditto Clipboard</h3>
+            <p class="tool-description">增强型剪贴板管理器，保存多个剪贴板历史记录</p>
+          </div>
+        </a>
+        <a href="https://Everything.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Everything</h3>
+            <p class="tool-description">快速文件搜索工具，基于文件名快速定位文件</p>
+          </div>
+        </a>
+        <a href="https://FreeFileSync.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-sync"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">FreeFileSync</h3>
+            <p class="tool-description">开源文件同步工具，用于备份和同步文件</p>
+          </div>
+        </a>
+        <a href="https://HWMonitor.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">HWM Monitor</h3>
+            <p class="tool-description">硬件监控工具，显示系统硬件的实时状态</p>
+          </div>
+        </a>
+        <a href="https://OpenHardwareMonitor.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Open Hardware Monitor</h3>
+            <p class="tool-description">开源硬件监控工具，显示CPU、GPU温度等信息</p>
+          </div>
+        </a>
+        <a href="https://PowerToys.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">PowerToys</h3>
+            <p class="tool-description">微软官方系统工具集，提供多种系统增强功能</p>
+          </div>
+        </a>
+        <a href="https://Rufus.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-thumbtack"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Rufus</h3>
+            <p class="tool-description">USB启动盘创建工具，支持多种操作系统镜像</p>
+          </div>
+        </a>
+        <a href="https://ShareX.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-share-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">ShareX</h3>
+            <p class="tool-description">屏幕截图和分享工具，支持多种截图方式和分享选项</p>
+          </div>
+        </a>
+        <a href="https://TreeSize.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-tree"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">TreeSize</h3>
+            <p class="tool-description">磁盘空间分析工具，可视化显示磁盘使用情况</p>
+          </div>
+        </a>
+        <a href="https://Ventoy.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Ventoy</h3>
+            <p class="tool-description">多系统启动盘创建工具，支持在一个USB设备上安装多个操作系统</p>
+          </div>
+        </a>
+        <a href="https://WinDirStat.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">WinDirStat</h3>
+            <p class="tool-description">磁盘空间分析工具，以树形图显示磁盘使用情况</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 开发工具 -->
+    <section class="tools-collection" id="dev">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">开发工具</h2>
+      <div class="tools-grid">
+        <a href="https://CosyVoice.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-volume-up"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">CosyVoice</h3>
+            <p class="tool-description">语音合成工具，用于生成自然的语音内容</p>
+          </div>
+        </a>
+        <a href="https://Kaldi.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-keyboard"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Kaldi</h3>
+            <p class="tool-description">开源语音识别工具，用于语音转文本和语音处理</p>
+          </div>
+        </a>
+        <a href="https://FFmpeg.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">FFmpeg</h3>
+            <p class="tool-description">开源音视频处理工具，支持多种格式转换和处理</p>
+          </div>
+        </a>
+        <a href="https://indexTTS.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Index TTS</h3>
+            <p class="tool-description">文本转语音工具，将文本转换为自然语音</p>
+          </div>
+        </a>
+        <a href="https://MetasploitFramework.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Metasploit Framework</h3>
+            <p class="tool-description">渗透测试框架，用于安全评估和漏洞测试</p>
+          </div>
+        </a>
+        <a href="https://Nmap.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Nmap</h3>
+            <p class="tool-description">网络扫描工具，用于网络发现和安全审计</p>
+          </div>
+        </a>
+        <a href="https://SQLMap.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">SQLMap</h3>
+            <p class="tool-description">SQL注入测试工具，用于检测和利用SQL注入漏洞</p>
+          </div>
+        </a>
+        <a href="https://VoxCPM.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-music"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">VoxCPM</h3>
+            <p class="tool-description">语音合成工具，提供高质量的语音生成</p>
+          </div>
+        </a>
+
+        <a href="https://x64dbg.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-bug"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">x64dbg</h3>
+            <p class="tool-description">64位调试器，用于软件分析和调试</p>
+          </div>
+        </a>
+        <a href="https://Zotero.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Zotero</h3>
+            <p class="tool-description">文献管理工具，用于收集、组织和引用研究文献</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 其他工具 -->
+    <section class="tools-collection" id="other">
+      <h2 style="margin-bottom: 30px; font-size: 24px; font-weight: 600;">其他工具</h2>
+      <div class="tools-grid">
+        <a href="https://Anki.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Anki</h3>
+            <p class="tool-description">记忆卡片应用，用于高效学习和记忆</p>
+          </div>
+        </a>
+        <a href="https://Blender.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-cube"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Blender</h3>
+            <p class="tool-description">开源3D建模、动画和渲染软件</p>
+          </div>
+        </a>
+        <a href="https://Calibre.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Calibre</h3>
+            <p class="tool-description">电子书管理软件，支持电子书格式转换和阅读</p>
+          </div>
+        </a>
+        <a href="https://CheatEngine.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Cheat Engine</h3>
+            <p class="tool-description">游戏修改工具，用于修改游戏参数和内存值</p>
+          </div>
+        </a>
+        <a href="https://ChinaTextbook.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">China Textbook</h3>
+            <p class="tool-description">中文教材资源，提供各类中文学习资料</p>
+          </div>
+        </a>
+
+
+        <a href="https://FreeCAD.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-ruler-combined"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">FreeCAD</h3>
+            <p class="tool-description">开源CAD软件，用于3D建模和设计</p>
+          </div>
+        </a>
+
+        <a href="https://KiCad.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">KiCad</h3>
+            <p class="tool-description">开源电子设计自动化软件，用于PCB设计</p>
+          </div>
+        </a>
+        <a href="https://Sigil.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Sigil</h3>
+            <p class="tool-description">电子书编辑软件，用于创建和编辑EPUB格式电子书</p>
+          </div>
+        </a>
+        <a href="https://Wireshark.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Wireshark</h3>
+            <p class="tool-description">网络协议分析器，用于网络故障排除和安全分析</p>
+          </div>
+        </a>
+        <a href="https://WondersharePDFelementPro.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Wondershare PDFelement Pro</h3>
+            <p class="tool-description">专业PDF编辑软件，提供全面的PDF处理功能</p>
+          </div>
+        </a>
+        <a href="https://WondersharePDFelementProPortable.calipertools.com" class="tool-card" target="_blank" rel="noopener noreferrer">
+          <div class="tool-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-title">Wondershare PDFelement Pro Portable</h3>
+            <p class="tool-description">便携版PDF编辑软件，无需安装即可使用</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://www.calipertools.com/">CaliperTools</a>
+        <a href="https://emoji.calipertools.com/">Emoji</a>
+        <a href="https://IndexTTS.calipertools.com/">IndexTTS</a>
+        <a href="https://VoxCPM.calipertools.com/">VoxCPM</a>
+        <a href="https://CosyVoice.calipertools.com/">CosyVoice</a>
+      </div>
+      <p>© 2025 CaliperTools. All rights reserved. Precision tools for everyone.</p>
+    </footer>
+  </div>
+
+  <!-- 下载选择弹出层 -->
+      <div id="download-modal" class="modal">
+        <div class="modal-content">
+          <!-- 关闭按钮 -->
+          <span class="close-btn" id="close-modal">&times;</span>
+          <!-- 标题 -->
+          <h3>选择下载方式</h3>
+          <!-- 网盘选择列表（动态生成） -->
+          <div class="download-options" id="download-options">
+            <!-- 动态生成的网盘选项将在这里显示 -->
+          </div>
+        </div>
+      </div>
+
+  <!-- 右侧功能按钮 -->
+  <div class="side-tools">
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="side-btn" title="回到顶部">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- 语言切换按钮 -->
+    <button id="language-switch" class="side-btn" title="切换语言" data-lang="zh">
+      <div class="lang-container">
+        <span class="lang-top" style="color: white;">中文</span>
+        <span class="lang-bottom" style="color: white;">EN</span>
+      </div>
+    </button>
+  </div>
+
+  <script>
+    // 添加平滑滚动效果
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // 添加图片懒加载
+    if ('loading' in HTMLImageElement.prototype) {
+      document.querySelectorAll('img').forEach(img => {
+        img.loading = 'lazy';
+      });
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+      document.body.appendChild(script);
+    }
+
+    // 设备检测 - 根据设备类型调整下载按钮显示
+    document.addEventListener('DOMContentLoaded', function() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const windowsBtn = document.querySelector('.cta .btn-blue');
+      const macBtn = document.querySelector('.cta .btn-outline');
+      
+      // 保持两个按钮都显示，用户可以自由选择
+      // 这里可以根据需要添加其他逻辑，比如高亮显示对应设备的按钮
+    });
+    
+    // 回到顶部功能
+    const backToTopBtn = document.getElementById('back-to-top');
+    const langSwitchBtn = document.getElementById('language-switch');
+    
+    // 初始化：语言切换按钮始终显示
+    langSwitchBtn.classList.add('show');
+    
+    // 监听滚动事件，显示/隐藏回到顶部按钮
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    
+    // 点击回到顶部
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 语言切换功能 - 单个按钮点击切换
+    langSwitchBtn.addEventListener('click', function() {
+      const currentLang = this.getAttribute('data-lang');
+      
+      if (currentLang === 'zh') {
+        // 从中文切换到英文，跳转到en文件夹
+        window.location.href = '/en/';
+      } else {
+        // 从英文切换到中文，跳转到根目录
+        window.location.href = '/';
+      }
+    });
+    
+    // 视频播放器引用
+    const bilibiliPlayer = document.getElementById('bilibili-player');
+    
+    // 下载模态框逻辑
+    const downloadModal = document.getElementById('download-modal');
+    const closeModal = document.getElementById('close-modal');
+    
+    // 功能映射表 - 每个功能对应的数据
+    const featureData = {
+      'PotPlayer-windows-64': {
+        platform: 'windows-64',
+        title: 'PotPlayer Windows64位下载 | 支持4K/8K/3D格式',
+        description: 'PotPlayer Windows64位是一款功能强大的多媒体播放器，支持几乎所有视频格式，提供流畅的播放体验、丰富的自定义选项和全面的字幕支持，支持4K、8K、3D和网络流媒体播放，免费下载使用。',
+        links: {
+          '百度网盘': 'https://pan.baidu.com/s/1fxJRtGe-KhFwBC3If1vU2Q?pwd=34mq',
+          '夸克网盘': 'https://pan.quark.cn/s/06b483d2eb21',
+          '迅雷网盘': 'https://pan.xunlei.com/s/VOk2DeZgimxHJG4S9766W8vIA1?pwd=55g7#'
+        }
+      },
+      'PotPlayer-windows-32': {
+        platform: 'windows-32',
+        title: 'PotPlayer Windows32位下载 | 支持4K/8K/3D格式',
+        description: 'PotPlayer Windows32位是一款功能强大的多媒体播放器，支持几乎所有视频格式，提供流畅的播放体验、丰富的自定义选项和全面的字幕支持，支持4K、8K、3D和网络流媒体播放，免费下载使用。',
+        links: {
+          '百度网盘': 'https://pan.baidu.com/s/1kbzILExVlyGXvIVVzfTZGw?pwd=x3jy',
+          '夸克网盘': 'https://pan.quark.cn/s/77b86d7e7e38',
+          '迅雷网盘': 'https://pan.xunlei.com/s/VOk2DaFJ4GoWiIfA2TUz8Z26A1?pwd=zb3g#'
+        }
+      },
+      'PotPlayer-windows-portable': {
+        platform: 'windows-portable',
+        title: 'PotPlayer Windows64位便携版下载 | 支持4K/8K/3D格式',
+        description: 'PotPlayer Windows64位便携版是一款功能强大的多媒体播放器，无需安装即可使用，支持几乎所有视频格式，提供流畅的播放体验、丰富的自定义选项和全面的字幕支持，支持4K、8K、3D和网络流媒体播放，免费下载使用。',
+        links: {
+          '百度网盘': 'https://pan.baidu.com/s/1iT9-Js64C_59SudLqfwWXg?pwd=tq6v',
+          '夸克网盘': 'https://pan.quark.cn/s/c162629e2c7c',
+          '迅雷网盘': 'https://pan.xunlei.com/s/VOk2DO7lowfKpS3bPJG3CATDA1?pwd=sk43#'
+        }
+      }
+    };
+    
+    // 从URL中获取当前功能
+    function getCurrentFeature() {
+      const path = window.location.pathname.replace(/\/$/, '');
+      const slug = path.split('/').pop();
+      return featureData[slug];
+    }
+    
+    // 获取所有下载按钮和选项容器
+    const downloadButtons = document.querySelectorAll('.download-buttons .btn');
+    const downloadOptionsContainer = document.getElementById('download-options');
+    
+    // 动态生成下载选项
+    function generateDownloadOptions(feature) {
+      // 清空容器
+      downloadOptionsContainer.innerHTML = '';
+      
+      // 获取该功能的下载链接
+      const links = feature.links;
+      
+      // 遍历链接，生成选项
+      for (const [name, url] of Object.entries(links)) {
+        const optionItem = document.createElement('div');
+        optionItem.className = 'option-item';
+        
+        // 根据平台获取显示名称
+        const platformName = {
+          'windows-64': 'Windows 64位',
+          'windows-32': 'Windows 32位',
+          'windows-portable': 'Windows 64位便携版'
+        }[feature.platform];
+        
+        // 使用原始链接，不添加平台信息
+        optionItem.innerHTML = `
+          <span class="option-name">${name}</span>
+          <a href="${url}" class="btn btn-blue option-btn" target="_blank" rel="noopener noreferrer nofollow">立即下载</a>
+        `;
+        
+        downloadOptionsContainer.appendChild(optionItem);
+      }
+    }
+    
+    // 更新页面标题和描述
+    function updatePageInfo(feature) {
+      // 更新页面标题
+      if (feature.title) {
+        document.title = feature.title;
+      }
+      
+      // 更新meta描述
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription && feature.description) {
+        metaDescription.content = feature.description;
+      }
+    }
+    
+    // 初始化页面，根据URL显示对应内容
+    function initPage() {
+      const feature = getCurrentFeature();
+      if (feature) {
+        // 更新页面标题和描述
+        updatePageInfo(feature);
+        
+        // 高亮对应的下载按钮
+        const button = document.querySelector(`.download-buttons .btn[data-platform="${feature.platform}"]`);
+        if (button) {
+          // 1. 先将所有按钮恢复为btn-outline样式
+          downloadButtons.forEach(btn => {
+            btn.classList.remove('btn-blue');
+            btn.classList.add('btn-outline');
+          });
+          
+          // 2. 将当前按钮设置为btn-blue样式
+          button.classList.remove('btn-outline');
+          button.classList.add('btn-blue');
+          
+          // 计算链接数量
+          const linkCount = Object.keys(feature.links).length;
+          
+          if (linkCount === 1) {
+            // 只有一个链接，不自动打开，让用户手动点击
+          } else {
+            // 多个链接，生成选项并显示模态框
+            generateDownloadOptions(feature);
+            downloadModal.style.display = 'block';
+          }
+        }
+      }
+    }
+    
+    // 页面加载时初始化
+    window.addEventListener('DOMContentLoaded', initPage);
+    
+    // 为每个下载按钮添加点击事件
+    downloadButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        // 阻止默认行为，防止页面跳转
+        e.preventDefault();
+        
+        // 获取当前平台
+        const platform = this.getAttribute('data-platform');
+        
+        // 查找对应的功能数据
+        const slug = `PotPlayer-${platform}`;
+        const feature = featureData[slug];
+        
+        if (feature) {
+          // 更新页面URL但不刷新页面
+          const newUrl = `/${slug}`;
+          history.pushState({ slug }, feature.title, newUrl);
+          
+          // 更新页面标题和描述
+          updatePageInfo(feature);
+          
+          // 高亮对应的下载按钮
+          downloadButtons.forEach(btn => {
+            btn.classList.remove('btn-blue');
+            btn.classList.add('btn-outline');
+          });
+          this.classList.remove('btn-outline');
+          this.classList.add('btn-blue');
+          
+          // 计算链接数量
+          const linkCount = Object.keys(feature.links).length;
+          
+          if (linkCount === 1) {
+            // 只有一个链接，在新窗口打开
+            const firstLink = Object.values(feature.links)[0];
+            
+            // 根据平台获取显示名称
+            const platformName = {
+              'windows-64': 'Windows 64位',
+              'windows-32': 'Windows 32位',
+              'windows-portable': 'Windows 64位便携版'
+            }[platform];
+            
+            // 使用原始链接，不添加平台信息
+            // 在新窗口打开链接
+            window.open(firstLink, '_blank', 'noopener,noreferrer');
+          } else {
+            // 多个链接，生成选项并显示模态框
+            generateDownloadOptions(feature);
+            downloadModal.style.display = 'block';
+          }
+        }
+      });
+    });
+    
+    // 添加popstate事件监听器，处理浏览器前进后退
+    window.addEventListener('popstate', function(e) {
+      // 重新初始化页面，根据新的URL显示对应内容
+      initPage();
+    });
+    
+    // 关闭模态框
+    function closeDownloadModal() {
+      downloadModal.style.display = 'none';
+    }
+    
+    // 点击关闭按钮
+    closeModal.addEventListener('click', closeDownloadModal);
+    
+    // 点击模态框外部
+    window.addEventListener('click', function(e) {
+      if (e.target === downloadModal) {
+        closeDownloadModal();
+      }
+    });
+  </script>
+</body>
+</html>
