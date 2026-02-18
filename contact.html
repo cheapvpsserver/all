@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - CaliperTools</title>
+    <!-- 网站描述 -->
+    <meta name="description" content="联系CaliperTools，我们提供专业的网站开发服务，为您打造高质量的网站解决方案。">
+    <!-- 网站图标 -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.png">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    /* 基础样式重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f8ff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* 全局容器 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 导航栏样式 */
+    nav {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .nav-logo-img {
+      width: 200px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #666;
+      font-size: 16px;
+      transition: color 0.3s ease;
+      font-weight: normal;
+    }
+
+    .nav-menu a:hover {
+      color: #4683f4;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* 头部样式 */
+    header {
+      padding: 60px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #f5f8ff 0%, #e8f0ff 100%);
+      margin-bottom: 60px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* 联系内容区域 */
+    .contact-section {
+      padding: 60px 0;
+    }
+
+    .contact-content {
+      display: flex;
+      gap: 80px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 400px;
+      max-width: 500px;
+    }
+
+    .contact-info h2 {
+      font-size: 28px;
+      margin-bottom: 32px;
+      color: #1a1a1a;
+    }
+
+    .contact-info p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .service-list {
+      margin: 40px 0;
+    }
+
+    .service-list h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+    }
+
+    .service-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .service-item {
+      background-color: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-item i {
+      font-size: 24px;
+      color: #4683f4;
+      margin-bottom: 16px;
+    }
+
+    .service-item h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .service-item p {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+    }
+
+    .contact-qr {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .contact-qr h3 {
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: #1a1a1a;
+    }
+
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 24px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .qr-code img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .contact-qr p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .contact-qr .wechat-id {
+      font-size: 18px;
+      font-weight: 600;
+      color: #4683f4;
+      margin-top: 16px;
+    }
+
+    /* 底部 CTA */
+    .cta {
+      padding: 80px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #f5f8ff 0%, #e8f0ff 100%);
+      margin-top: 80px;
+    }
+
+    .cta h2 {
+      font-size: 28px;
+      margin-bottom: 32px;
+      color: #1a1a1a;
+    }
+
+    /* 按钮基础样式 */
+    .btn {
+      padding: 10px 24px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    /* 按钮图标样式 */
+    .btn i {
+      margin-right: 8px;
+    }
+
+    .btn-blue {
+      background-color: #4683f4;
+      color: white;
+    }
+
+    .btn-blue:hover {
+      background-color: #3366cc;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #4683f4;
+      border: 1px solid #4683f4;
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(70, 131, 244, 0.1);
+    }
+
+    /* 页脚 */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #e8e8e8;
+    }
+    
+    /* 友情链接样式 */
+    .footer-links {
+      margin-bottom: 20px;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 12px;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #4683f4;
+    }
+
+    /* 右侧功能按钮样式 */
+    .side-tools {
+      position: fixed;
+      right: 250px;
+      bottom: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 99;
+    }
+    
+    /* 移动端适配 */
+    @media (max-width: 1200px) {
+      .side-tools {
+        right: 30px;
+        bottom: 30px;
+      }
+    }
+    
+    /* 右侧功能按钮 */
+    .side-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: #4683f4;
+      border: none;
+      box-shadow: 0 2px 12px rgba(70, 131, 244, 0.3);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      text-align: center;
+    }
+
+    .side-btn:hover {
+      background-color: #3366cc;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(51, 102, 204, 0.4);
+    }
+    
+    .side-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 语言切换按钮样式 */
+    .lang-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .lang-top, .lang-bottom {
+      position: relative;
+      font-size: 12px;
+      font-weight: 500;
+      width: 100%;
+      text-align: center;
+      padding: 3px 0;
+      z-index: 1;
+    }
+    
+    /* 为语言切换按钮添加上下分割线 */
+    .side-btn#language-switch::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 2;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      header {
+        padding: 40px 0;
+      }
+
+      header h1 {
+        font-size: 28px;
+      }
+
+      .contact-content {
+        gap: 40px;
+      }
+
+      .contact-info,
+      .contact-qr {
+        min-width: 100%;
+        max-width: 100%;
+      }
+
+      .service-items {
+        grid-template-columns: 1fr;
+      }
+    }
+    </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="images/logo.png" alt="PotPlayer" class="nav-logo-img">
+      </a>
+      <div class="nav-menu">
+        <a href="/" style="display: none;">首页</a>
+      </div>
+      <div class="nav-actions">
+        <a href="/contact.html" class="btn btn-blue">联系我们</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 头部区域 -->
+  <header>
+    <h1>联系我们</h1>
+    <p>专业的网站开发服务，为您打造高质量的网站解决方案</p>
+  </header>
+
+  <div class="container">
+    <!-- 联系内容区域 -->
+    <section class="contact-section">
+      <div class="contact-content">
+        <!-- 联系信息 -->
+        <div class="contact-info">
+          <h2>网站开发服务</h2>
+          <p>我们提供专业的网站开发服务，包括但不限于：</p>
+          
+          <div class="service-list">
+            <h3>我们的服务</h3>
+            <div class="service-items">
+              <div class="service-item">
+                <i class="fas fa-code"></i>
+                <h4>网站开发</h4>
+                <p>定制化网站开发，满足您的业务需求</p>
+              </div>
+              <div class="service-item">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>响应式设计</h4>
+                <p>适配各种设备的响应式网站</p>
+              </div>
+              <div class="service-item">
+                <i class="fas fa-paint-brush"></i>
+                <h4>UI/UX设计</h4>
+                <p>美观易用的用户界面和体验设计</p>
+              </div>
+              <div class="service-item">
+                <i class="fas fa-server"></i>
+                <h4>网站维护</h4>
+                <p>专业的网站维护和技术支持</p>
+              </div>
+            </div>
+          </div>
+
+          <p>无论您是需要一个简单的企业官网，还是复杂的电商平台，我们都能为您提供专业的解决方案。我们拥有丰富的开发经验和专业的技术团队，致力于为客户打造高质量、高性能的网站。</p>
+        </div>
+
+        <!-- 微信二维码 -->
+        <div class="contact-qr">
+          <h3>联系我们</h3>
+          <div class="qr-code">
+            <!-- 这里放置微信二维码图片 -->
+            <img src="images/wx.png" alt="微信二维码">
+          </div>
+          <p>扫描二维码添加微信</p>
+          <p class="wechat-id">calipertools</p>
+          <p>我们将尽快与您联系，为您提供专业的网站开发咨询服务。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="cta">
+      <h2>准备好开始您的项目了吗？</h2>
+      <p style="margin-bottom: 32px; font-size: 16px; color: #666;">联系我们，让我们为您打造专业的网站解决方案</p>
+      <a href="/contact.html" class="btn btn-blue"><i class="fas fa-envelope"></i>立即联系</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://www.calipertools.com/">CaliperTools</a>
+        <a href="https://emoji.calipertools.com/">Emoji</a>
+        <a href="https://IndexTTS.calipertools.com/">IndexTTS</a>
+        <a href="https://VoxCPM.calipertools.com/">VoxCPM</a>
+        <a href="https://CosyVoice.calipertools.com/">CosyVoice</a>
+      </div>
+      <p>© 2025 CaliperTools. All rights reserved. Precision tools for everyone.</p>
+    </footer>
+  </div>
+
+  <!-- Right Side Function Buttons -->
+  <div class="side-tools">
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="side-btn" title="回到顶部">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- Language Switch Button -->
+    <button id="language-switch" class="side-btn" title="切换语言" data-lang="zh">
+      <div class="lang-container">
+        <span class="lang-top" style="color: white;">中文</span>
+        <span class="lang-bottom" style="color: white;">EN</span>
+      </div>
+    </button>
+  </div>
+
+  <script>
+    // Add Smooth Scrolling Effect
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add Image Lazy Loading
+    if ('loading' in HTMLImageElement.prototype) {
+      document.querySelectorAll('img').forEach(img => {
+        img.loading = 'lazy';
+      });
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+      document.body.appendChild(script);
+    }
+
+    // Back to Top Functionality
+    const backToTopBtn = document.getElementById('back-to-top');
+    const langSwitchBtn = document.getElementById('language-switch');
+    
+    // Initialization: Language Switch Button Always Displayed
+    langSwitchBtn.classList.add('show');
+    
+    // Listen to Scroll Event, Show/Hide Back to Top Button
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    
+    // Click Back to Top
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Language Switch Functionality - Single Button Click Switch
+    langSwitchBtn.addEventListener('click', function() {
+      const currentLang = this.getAttribute('data-lang');
+      
+      if (currentLang === 'zh') {
+        // Switch from Chinese to English, jump to en folder
+        window.location.href = '/en/contact.html';
+      } else {
+        // Switch from English to Chinese, jump to root directory
+        window.location.href = '/contact.html';
+      }
+    });
+  </script>
+</body>
+</html>
